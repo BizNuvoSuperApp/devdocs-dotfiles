@@ -3,20 +3,19 @@
 if [[ ! -f ~/.dotfiles.upd ]]; then
     touch ~/.dotfiles.upd
 else
-    one_day_ago=$(date -d 'now - 1 minute' +%s)
+    one_day_ago=$(date -d 'now - 1 day' +%s)
     last_upgrade_time=$(date -r ~/.dotfiles.upd +%s)
 
     if (( last_upgrade_time <= one_day_ago )); then
         echo "== Updating .dotfiles =="
 
-        cd ~/.dotfiles
-        git pull
+        (cd ~/.dotfiles && git pull)
 
         tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
 
         touch ~/.dotfiles.upd
 
-        exec bash
+        exec bash -i -l
     fi
 fi
 
@@ -30,7 +29,7 @@ export PATH
 LESS="-iR"
 export LESS
 
-LS_COMMON="-ksFGh --classify --color=auto --show-control-chars"
+LS_COMMON="-kFGh --classify --color=auto --show-control-chars"
 LS_COMMON="$LS_COMMON -I NTUSER.DAT\* -I ntuser.dat\* -I ntuser.ini"
 export LS_COMMON
 
