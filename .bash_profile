@@ -23,13 +23,19 @@ if ! which oh-my-posh >/dev/null 2>&1 ; then
     winget install JanDeDobbeleer.OhMyPosh
 fi
 
+if ! which eza >/dev/null 2>&1 ; then
+	winget install eza-community.eza
+fi
+
+##
+
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 export PATH
 
 LESS="-iR"
 export LESS
 
-LS_COMMON="-kFGh --classify --color=auto --show-control-chars"
+LS_COMMON="-kFGhA --classify --color=auto --show-control-chars"
 LS_COMMON="$LS_COMMON -I NTUSER.DAT\* -I ntuser.dat\* -I ntuser.ini"
 export LS_COMMON
 

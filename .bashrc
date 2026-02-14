@@ -65,11 +65,12 @@ alias ..='cd ..'
 alias ...='cd ../../'
 
 alias ls="command ls $LS_COMMON"
-alias l='ls'
-alias la='ls -A'
-alias ll='la -l'
+
+alias l="eza -AF --color=always --git --icons=auto --show-symlinks --ignore-glob 'NTUSER.DAT*|ntuser.dat*'"
+alias ll="l --long --header --time-style=long-iso --ignore-glob 'NTUSER.DAT*|ntuser.dat*|.git|.gradle'"
 alias lls='ll --sort=size'
 alias llt='ll --sort=time'
+alias tree="ll --tree --level"
 
 alias mkdir='mkdir -p'
 alias rm='rm -v'
@@ -88,6 +89,11 @@ alias lfd="less C:/opt/biznuvo/logs/designer/app.log"
 alias lfo="less C:/opt/biznuvo/logs/operations/app.log"
 
 alias cdt="cd c:/opt/tomcat"
+
+updatedot () {
+    tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
+    exec bash -i -l
+}
 
 # ssh-copy-id command doesn't exist on windows, so create a version that will
 ssh-copy-id () {
