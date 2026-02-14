@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# script to run docker argbash script that will process an argbash template
+# used to update the argbash templates that are written in the biznuvo projects
+
+for arg in "$@" ; do
+	MSYS_NO_PATHCONV=1 docker run --rm -e PROGRAM=argbash -u "$(id -u):$(id -g)" -v "$(pwd):/work" matejak/argbash -i $arg
+done

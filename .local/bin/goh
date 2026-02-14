@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+if ! which gum >/dev/null 2>&1 ; then
+    winget install charmbracelet.gum
+fi
+
+ssh_hosts=("Exit")
+foundHosts=false
+
+while read -r ssh_host; do
+    ssh_hosts+=("$ssh_host")
+    foundHosts=true
+done < <(awk 'tolower($1) == "host" {print $2}' ~/.ssh/config)
+
+if [[ $foundHosts != true ]]; then
+    echo "No host aliases defined in config file"
+    exit 1
+fi
+
+resp=$(gum filter --limit=1 --timeout=10s --header="Pick SSH host to connect to:" "${ssh_hosts[@]}")
+
+if [[ -n $resp && $resp != 'Exit' ]]; then
+    ssh $resp
+fi
