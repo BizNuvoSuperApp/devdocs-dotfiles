@@ -94,7 +94,13 @@ alias lfo="less c:/opt/biznuvo/logs/operations/app.log"
 alias cdt="cd c:/opt/tomcat"
 
 updatedot () {
+    (cd $HOME/.dotfiles && git pull)
+
     tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
+
+    mkdir -p $HOME/.config/bash-updates
+    touch $HOME/.config/bash-updates/dotfiles.upd
+
     exec bash -i -l
 }
 
