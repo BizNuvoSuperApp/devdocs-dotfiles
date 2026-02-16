@@ -66,11 +66,14 @@ alias ...='cd ../../'
 
 alias ls="command ls $LS_COMMON"
 
-alias l="eza -AF --color=always --git --icons=auto --show-symlinks --ignore-glob 'NTUSER.DAT*|ntuser.dat*|.git'"
-alias ll="l --long --header --time-style=long-iso"
+alias l="eza -AF --color=always --git --icons=auto --show-symlinks --ignore-glob 'NTUSER.DAT*|ntuser.dat*'"
+alias ll="l --long --header --no-permissions --time-style=long-iso"
 alias lls="ll --sort=size"
 alias llt="ll --sort=time"
-alias tree="ll --tree --level"
+
+tree() {
+    ll --tree --level ${1:-2}
+}
 
 alias mkdir='mkdir -p'
 alias rm='rm -v'
