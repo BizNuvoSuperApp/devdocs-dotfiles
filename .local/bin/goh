@@ -4,6 +4,21 @@ if ! which gum >/dev/null 2>&1 ; then
     winget install charmbracelet.gum
 fi
 
+if [[ ! -f $HOME/.config/bash-updates/gum.upd ]]; then
+    mkdir -p $HOME/.config/bash-updates
+    touch $HOME/.config/bash-updates/gum.upd
+else
+    before_time=$(date -d 'now - 7 day' +%s)
+    last_upgrade_time=$(date -r $HOME/.config/bash-updates/gum.upd +%s)
+
+    if (( last_upgrade_time <= before_time )); then
+        echo "== Updating CLI tools =="
+        winget update charmbracelet.gum
+        touch $HOME/.config/bash-updates/gum.upd
+    fi
+fi
+
+
 ssh_hosts=("Exit Quit")
 foundHosts=false
 

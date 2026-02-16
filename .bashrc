@@ -76,8 +76,8 @@ alias mkdir='mkdir -p'
 alias rm='rm -v'
 
 # Biznuvo aliases
-alias cdr="cd C:/repos"
-alias cdm="cd C:/repos/biznuvo-server-v2"
+alias cdr="cd c:/repos"
+alias cdm="cd c:/repos/biznuvo-server-v2"
 
 alias cdd="cd c:/opt/biznuvo/apps/designer"
 alias cdo="cd c:/opt/biznuvo/apps/operations"
@@ -85,8 +85,8 @@ alias cdo="cd c:/opt/biznuvo/apps/operations"
 alias tfd="tail -F C:/opt/biznuvo/logs/designer/app.log"
 alias tfo="tail -F C:/opt/biznuvo/logs/operations/app.log"
 
-alias lfd="less C:/opt/biznuvo/logs/designer/app.log"
-alias lfo="less C:/opt/biznuvo/logs/operations/app.log"
+alias lfd="less c:/opt/biznuvo/logs/designer/app.log"
+alias lfo="less c:/opt/biznuvo/logs/operations/app.log"
 
 alias cdt="cd c:/opt/tomcat"
 

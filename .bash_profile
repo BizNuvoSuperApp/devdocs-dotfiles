@@ -74,6 +74,7 @@ fi
 
 if which oh-my-posh >/dev/null 2>&1 ; then
     if [[ -f $HOME/.config/quick-term-custom.json ]]; then
+        # this version adds hostname to the prompt
     	eval "$(oh-my-posh init bash --config $HOME/.config/quick-term-custom.json)"
     else
     	eval "$(oh-my-posh init bash --config quick-term)"
