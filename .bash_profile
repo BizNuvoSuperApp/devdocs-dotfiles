@@ -72,6 +72,10 @@ if [[ -f $HOME/.bashrc ]]; then
     . $HOME/.bashrc
 fi
 
+if which zoxide >/dev/null 2>&1 ; then
+    eval "$(zoxide init --cmd cd bash)"
+fi
+
 if which oh-my-posh >/dev/null 2>&1 ; then
     if [[ -f $HOME/.config/quick-term-custom.json ]]; then
         # this version adds hostname to the prompt
