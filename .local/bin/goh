@@ -15,7 +15,7 @@ _checkUpdateNeeded() {
     local timeType=${timeArg:(-1)}
 
     case "$timeType" in
-    "m") time=$(($time * 60));;
+    "m") time=$(($time * 60)) ;;
     "h") time=$(($time * 3600)) ;;
     "d") time=$(($time * 86400)) ;;
     "*") return 1 ;;
@@ -24,7 +24,7 @@ _checkUpdateNeeded() {
     local currentTime=$(date +%s)
     local fileTime=$(stat -c %Y $file)
 
-    if (($currentTime - $fileTime < $time)); then
+    if (($currentTime - $fileTime > $time)); then
         touch $file
         return 0
     fi
