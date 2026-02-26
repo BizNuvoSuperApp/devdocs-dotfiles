@@ -1,23 +1,42 @@
 # User specific environment and startup programs
 
-if [[ ! -f $HOME/.config/bash-updates/dotfiles.upd ]]; then
-    mkdir -p $HOME/.config/bash-updates
-    touch $HOME/.config/bash-updates/dotfiles.upd
-else
-    before_time=$(date -d 'now - 1 day' +%s)
-    last_upgrade_time=$(date -r $HOME/.config/bash-updates/dotfiles.upd +%s)
+_checkUpdateNeeded() {
+    local dir=$HOME/update-lock-timestamps
+    local file=$dir/${1}.tz
 
-    if (( last_upgrade_time <= before_time )); then
-        echo "== Updating .dotfiles =="
-
-        (cd $HOME/.dotfiles && git pull)
-
-        tar -cf - -C $HOME/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C $HOME >/dev/null 2>&1
-
-        touch $HOME/.config/bash-updates/dotfiles.upd
-
-        exec bash -i -l
+    if [[ ! -f $file ]]; then
+        mkdir -p $dir
+        touch $file
+        return 0
     fi
+
+    local timeArg=${2:-1d}
+    local time=${timeArg::-1}
+    local timeType=${timeArg:(-1)}
+
+    case "$timeType" in
+    "m") time=$(($time * 60));;
+    "h") time=$(($time * 3600)) ;;
+    "d") time=$(($time * 86400)) ;;
+    "*") return 1 ;;
+    esac
+
+    local currentTime=$(date +%s)
+    local fileTime=$(stat -c %Y $file)
+
+    if (($currentTime - $fileTime < $time)); then
+        touch $file
+        return 0
+    fi
+
+    return 1
+}
+
+if _checkUpdateNeeded dotfiles; then
+    echo "== Updating .dotfiles =="
+    (cd $HOME/.dotfiles && git pull)
+    tar -cf - -C $HOME/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C $HOME >/dev/null 2>&1
+    exec bash -i -l
 fi
 
 if ! which oh-my-posh >/dev/null 2>&1 ; then
@@ -36,18 +55,9 @@ if ! which fzf >/dev/null 2>&1 ; then
     winget install fzf
 fi
 
-if [[ ! -f $HOME/.config/bash-updates/tools.upd ]]; then
-    mkdir -p $HOME/.config/bash-updates
-    touch $HOME/.config/bash-updates/tools.upd
-else
-    before_time=$(date -d 'now - 7 day' +%s)
-    last_upgrade_time=$(date -r $HOME/.config/bash-updates/tools.upd +%s)
-
-    if (( last_upgrade_time <= before_time )); then
-        echo "== Updating CLI tools =="
-        winget update JanDeDobbeleer.OhMyPosh eza-community.eza ajeetdsouza.zoxide fzf
-        touch $HOME/.config/bash-updates/tools.upd
-    fi
+if _checkUpdateNeeded tools; then 
+    echo "== Updating CLI tools =="
+    winget update JanDeDobbeleer.OhMyPosh eza-community.eza ajeetdsouza.zoxide fzf
 fi
 
 ##
@@ -83,3 +93,5 @@ if which oh-my-posh >/dev/null 2>&1 ; then
     	eval "$(oh-my-posh init bash --config quick-term)"
     fi
 fi
+
+unset -f _checkUpdateNeeded

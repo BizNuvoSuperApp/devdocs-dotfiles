@@ -66,10 +66,12 @@ alias ...='cd ../../'
 
 alias ls="command ls $LS_COMMON"
 
-alias l="eza -AF --color=always --git --icons=auto --show-symlinks --ignore-glob 'NTUSER.DAT*|ntuser.dat*'"
+alias l="eza -AF --git --show-symlinks --color=auto --icons=auto --ignore-glob 'NTUSER.DAT*|ntuser.dat*'"
 alias ll="l --long --header --no-permissions --time-style=long-iso"
 alias lls="ll --sort=size"
 alias llt="ll --sort=time"
+alias tree="ll --tree --level "
+alias stree="l --tree --level "
 
 tree() {
     ll --tree --level ${1:-2}
@@ -98,8 +100,8 @@ updatedot () {
 
     tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
 
-    mkdir -p $HOME/.config/bash-updates
-    touch $HOME/.config/bash-updates/dotfiles.upd
+    mkdir -p $HOME/.config/update-lock-timestamps
+    touch $HOME/.config/update-lock-timestamps/dotfiles.tz
 
     exec bash -i -l
 }
