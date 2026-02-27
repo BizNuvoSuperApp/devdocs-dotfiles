@@ -16,12 +16,9 @@ if chk-update dotfiles; then
     exec bash -i -l
 fi
 
-chk-winget JanDeDobbeleer.OhMyPosh oh-my-posh
-chk-winget sxyazi.yazi yazi
-chk-winget eza-community.eza eza
-chk-winget ajeetdsouza.zoxide zoxide
-chk-winget junegunn.fzf fzf
-chk-winget sharkdp.fd fd
+which oh-my-posh >/dev/null 2>&1 || winget install JanDeDobbeleer.OhMyPosh
+which zoxide >/dev/null 2>&1 || winget install ajeetdsouza.zoxide
+which eza >/dev/null 2>&1 || winget install za-community.eza
 
 # Source $HOME/.bash_user for custom setup that for user specific stuff
 if [[ -f $HOME/.bash_user ]]; then
@@ -33,9 +30,7 @@ if [[ -f $HOME/.bashrc ]]; then
     . $HOME/.bashrc
 fi
 
-if which zoxide >/dev/null 2>&1 ; then
-    eval "$(zoxide init --cmd cd bash)"
-fi
+which zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd bash)"
 
 if which oh-my-posh >/dev/null 2>&1 ; then
     if [[ -n $POSH_PROMPT_CUSTOM && -f $POSH_PROMPT_CUSTOM ]]; then
