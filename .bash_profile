@@ -41,23 +41,26 @@ fi
 
 if ! which oh-my-posh >/dev/null 2>&1 ; then
     winget install JanDeDobbeleer.OhMyPosh
+elif _checkUpdateNeeded ohmyposh 2d; then
+    winget update JanDeDobbeleer.OhMyPosh
 fi
 
 if ! which eza >/dev/null 2>&1 ; then
 	winget install eza-community.eza
+elif _checkUpdateNeeded eza 2d; then
+	winget update eza-community.eza
 fi
 
 if ! which z >/dev/null 2>&1 ; then
     winget install ajeetdsouza.zoxide
+elif _checkUpdateNeeded zoxide 2d; then
+    winget update ajeetdsouza.zoxide
 fi
 
 if ! which fzf >/dev/null 2>&1 ; then
     winget install fzf
-fi
-
-if _checkUpdateNeeded tools; then 
-    echo "== Updating CLI tools =="
-    winget update JanDeDobbeleer.OhMyPosh eza-community.eza ajeetdsouza.zoxide fzf
+elif _checkUpdateNeeded fzf 2d; then
+    winget update fzf
 fi
 
 ##

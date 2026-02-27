@@ -70,12 +70,8 @@ alias l="eza -AF --git --show-symlinks --color=auto --icons=auto --ignore-glob '
 alias ll="l --long --header --no-permissions --time-style=long-iso"
 alias lls="ll --sort=size"
 alias llt="ll --sort=time"
-alias tree="ll --tree --level "
-alias stree="l --tree --level "
-
-tree() {
-    ll --tree --level ${1:-2}
-}
+alias tree="l --tree --level "
+alias ltree="ll --tree --level "
 
 alias mkdir='mkdir -p'
 alias rm='rm -v'
