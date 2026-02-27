@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd $HOME/.dotfiles
+git pull
+
+tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
+
+mkdir -p $HOME/.config/update-locks
+touch $HOME/.config/update-locks/dotfiles.tz
+
+exec bash -i -l

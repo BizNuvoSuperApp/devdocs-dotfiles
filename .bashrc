@@ -91,17 +91,6 @@ alias lfo="less c:/opt/biznuvo/logs/operations/app.log"
 
 alias cdt="cd c:/opt/tomcat"
 
-updatedot () {
-    (cd $HOME/.dotfiles && git pull)
-
-    tar -cf - -C ~/.dotfiles --exclude-backups --exclude-vcs . | tar -xpf - -C ~ >/dev/null 2>&1
-
-    mkdir -p $HOME/.config/update-lock-timestamps
-    touch $HOME/.config/update-lock-timestamps/dotfiles.tz
-
-    exec bash -i -l
-}
-
 # ssh-copy-id command doesn't exist on windows, so create a version that will
 ssh-copy-id () {
     ssh $1 "mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys" < ~/.ssh/id_ed25519.pub
