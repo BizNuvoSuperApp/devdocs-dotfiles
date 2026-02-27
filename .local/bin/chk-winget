@@ -113,7 +113,7 @@ _isOn() {
 
 lock="winget-${_arg_cmd}"
 
-if ! which $cmd >/dev/null 2>&1; then
+if ! which $_arg_cmd >/dev/null 2>&1; then
     printf "== Installing %s ==\n" "$_arg_package"
     winget install "$_arg_package"
     chk-update -u "$lock"

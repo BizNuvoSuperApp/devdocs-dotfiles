@@ -144,6 +144,7 @@ _updateLock() {
 }
 
 if _isOn $_arg_update; then
+	printf "== Updating lock %s ==\n" $_arg_cmd
     _updateLock "$_arg_cmd"
 elif ! _checkLock $_arg_cmd $_arg_time; then
     exit 1
