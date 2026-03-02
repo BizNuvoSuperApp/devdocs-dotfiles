@@ -2,10 +2,6 @@
 
 filterArg=${1:-}
 
-if ! which gum >/dev/null 2>&1; then
-    winget install charmbracelet.gum
-fi
-
 ssh_hosts=("Exit Quit")
 foundHosts=false
 
