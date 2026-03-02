@@ -73,6 +73,11 @@ if which eza >/dev/null 2>&1; then
     alias llt="ll --sort=time"
     alias tree="l --tree --level "
     alias ltree="ll --tree --level "
+else
+    alias l='ls -A'
+    alias ll='la -l'
+    alias lls='ll --sort=size'
+    alias llt='ll --sort=time'
 fi
 
 alias mkdir='mkdir -p'
@@ -85,8 +90,8 @@ alias cdm="cd c:/repos/biznuvo-server-v2"
 alias cdd="cd c:/opt/biznuvo/apps/designer"
 alias cdo="cd c:/opt/biznuvo/apps/operations"
 
-alias tfd="tail -F C:/opt/biznuvo/logs/designer/app.log"
-alias tfo="tail -F C:/opt/biznuvo/logs/operations/app.log"
+alias tfd="tail -F c:/opt/biznuvo/logs/designer/app.log"
+alias tfo="tail -F c:/opt/biznuvo/logs/operations/app.log"
 
 alias lfd="less c:/opt/biznuvo/logs/designer/app.log"
 alias lfo="less c:/opt/biznuvo/logs/operations/app.log"

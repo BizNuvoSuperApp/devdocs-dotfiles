@@ -1,12 +1,6 @@
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
-export PATH
-
-LESS="-iR"
-export LESS
-
-LS_COMMON="-kFGhA --classify --color=auto --show-control-chars"
-LS_COMMON="$LS_COMMON -I NTUSER.DAT\* -I ntuser.dat\* -I ntuser.ini"
-export LS_COMMON
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export LESS="-iR"
+export LS_COMMON="-kFGhA --classify --color=auto --show-control-chars -I NTUSER.DAT\* -I ntuser.dat\* -I ntuser.ini"
 
 if chk-update dotfiles; then
     printf "== Updating .dotfiles ==\n"
@@ -15,10 +9,6 @@ if chk-update dotfiles; then
     chk-update -u dotfiles
     exec bash -i -l
 fi
-
-which oh-my-posh >/dev/null 2>&1 || winget install JanDeDobbeleer.OhMyPosh
-which zoxide >/dev/null 2>&1 || winget install ajeetdsouza.zoxide
-which eza >/dev/null 2>&1 || winget install za-community.eza
 
 # Source $HOME/.bash_user for custom setup that for user specific stuff
 if [[ -f $HOME/.bash_user ]]; then
